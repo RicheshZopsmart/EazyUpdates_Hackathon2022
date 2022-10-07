@@ -1,0 +1,49 @@
+Asset mgmt Flow
+
+#1 Asset management Form Fields						IF return JUMP TO #3 -> Status - Collected -> Done
+
+- Dropdown Menu 
+(Return)/Damage
+(What damage)
+	- Physical
+	- Software/Internal
+	- Upgrade
+- Reason
+- CC (SSDE, Mentor)
+- Pre fetched - Your manager, Akshat & Anupam
+
+
+#2. Everyone gets mail
+
+#3. IT Admin page
+
+# Asset Tickets
+# Dropdown - open/close
+
+# Status By(Ticket Id) Email on status change
+Approval from {{Akshat}}
+Asset collection
+Asset Review By {{Anupam}}
+Replaced/ Repair /Collected
+Employee Approval
+
+# NOTE
+- Text editor
+
+#4 Akshat Page
+
+- Asset Tickets
+	- Approve/Reject
+	- Notes
+
+#5 IT Admin Page
+-Replace/Repair/Collected
+- Replace
+	- # Form Fields
+		- Name of the asset
+		- New Serial Number
+		- Description
+
+#6 Employee Approval
+- Confirm if you have received the asset
+
