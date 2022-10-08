@@ -1,11 +1,18 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+import re
+from django.shortcuts import render
 import json
 from django.utils.decorators import method_decorator
-from .custom_decorator import is_executive
+
+from User.models import extended_user
+from .custom_decorator import is_executive,is_admin
 from .models import *
 from django.core.mail import send_mail
 # Create your views here.
+
+        
+def Error(request,err):
+    return render(request,"asset_msgmt/error.html",{'error':err})
 
 def Assethome(request):
     assetObjs = Asset.objects.filter(Owner = request.user)
@@ -64,8 +71,28 @@ def TrackTicket(request,ticketID):
     print("Tickets : ",Ticket)
     return render(request,"asset_mgmt/track-ticket.html",{'ticket':Ticket})
     
-
-            
+# is IT ADMIN
 def AdminPanel(request):
-    return render(request,"",{})
+    xuser = extended_user.objects.get(user = request.user)
+    if xuser.Level==2:
+        # IT Admin
+        assets = Asset.objects.all()    
+        Tickets = AssetTicket.objects.filter(Asset__id__in = assets)
+        return render(request,"asset_mgmt/admin-panel.html",{'tickets':Tickets})
+    elif xuser.Level==1:
+        # Executive Level Employee
+        tickets = AssetTicket.objects.filter(status = 0)
+        print(tickets)
+        return render(request,"asset_mgmt/executive-panel.html",{'tickets':tickets})
+    else:
+        return Error(request,"You are not Authorized! Contact Executive Admin")
+
+@is_admin
+def TakeAction(request,ticketID):
+    status = AssetTicket.objects.filter(id = ticketID)[0]
+    return render(request,"asset_mgmt/take-action.html",{'status':status})
+
+def UpdateStatus(request,ticketID):
+    ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
+    return TakeAction(request,ticketID)
     
