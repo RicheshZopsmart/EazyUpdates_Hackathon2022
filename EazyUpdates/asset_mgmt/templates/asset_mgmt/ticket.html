@@ -3,4 +3,125 @@
 <title>
     Raise A ticket | EazyUpdates
 </title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 {% endblock head %}
+
+{% block body %}
+
+   <form id="live_form">
+       {% csrf_token %}
+    <div class="form-group">
+     <label class="control-label ">
+      What you want to do with your asset?
+     </label>
+     <div class="">
+      <div class="radio">
+       <label class="radio">
+        <input name="rating" type="radio" value="return"/>
+        Return
+       </label>
+      </div>
+      <div class="radio">
+       <label class="radio">
+        <input name="rating" type="radio" value="replace"/>
+       Replace/Repair
+       </label>
+      </div>
+     </div>
+    </div>
+    <div class="-group hidden">
+     <label class="control-label" for="feedback_bad">
+      We're sorry to hear you had a bad experience.  What went wrong?
+     </label>
+     <textarea class="form-control" cols="40" id="feedback_bad" name="feedback_bad" rows="10"></textarea>
+    </div>
+    <div class="form-group hidden">
+     <label class="control-label" for="feedback_ok">
+     why you want to Return?
+     </label>
+     <textarea class="form-control form-control" cols="40" id="feedback_ok" name="feedback_ok" rows="10"></textarea>
+    </div>
+    <div class="form-group hidden" id="div_testimonial">
+      <div>
+          <label class="control-label " for="testimonial">
+          Mention the kind of damage
+          </label>
+          <div>
+          <label class="radio-inline">
+           <input name="testimonial" type="radio" value="physical"/>
+           Physical
+          </label>
+           <label class="radio-inline">
+           <input name="testimonial" type="radio" value="internal"/>
+           Software/Internal
+          </label>
+          </div>
+      </div>
+    </div>
+    <div class="form-group hidden">
+     <label class="control-label " for="feedback_great">
+      Add description of the problem you are facing:
+     </label>
+     <textarea class="form-control" cols="40" id="feedback_great" name="feedback_great" rows="10"></textarea>
+    </div>
+    <div class="form-group hidden" id="thanks_anyway">
+     <label class="control-label">
+      No problem, thanks for being a customer!
+     </label>
+    </div>				 
+    <div class="form-group">
+      <button class="btn btn-primary submit" name="submit" type="submit">
+       Submit
+      </button>
+    </div>
+   </form>	
+{% endblock body %}
+
+{% block JS %}
+<script>
+    $(document).ready(function() { //wait until body loads
+
+        var testimonial_ok = false; //keeps track of whether the testimonial box is filled out
+      
+        //Inputs that determine what fields to show
+        var rating = $('#live_form input:radio[name=rating]');
+        var testimonial = $('#live_form input:radio[name=testimonial]');
+      
+        //Wrappers for all fields
+        var bad = $('#live_form textarea[name="feedback_bad"]').parent();
+        var ok = $('#live_form textarea[name="feedback_ok"]').parent();
+        var great = $('#live_form textarea[name="feedback_great"]').parent();
+        var testimonial_parent = $('#live_form #div_testimonial');
+        var thanks_anyway = $('#live_form #thanks_anyway');
+        var all = bad.add(ok).add(great).add(testimonial_parent).add(thanks_anyway); //shortcut for all wrapper elements
+      
+        rating.change(function() { //when the rating changes
+          var value = this.value;
+          all.addClass('hidden'); //hide everything and reveal as needed
+      
+          if (value == 'return') {
+            ok.removeClass('hidden'); //show feedback_ok	
+          } else if (value == 'replace') {
+            testimonial_parent.removeClass('hidden'); //show testimonial question
+          }
+        });
+      
+      
+        testimonial.change(function() {
+          //hide all except testimonial question
+          all.addClass('hidden');
+          testimonial_parent.removeClass('hidden');
+      
+          testimonial_ok = this.value;
+      
+         //if user willing to write testimonial
+            great.removeClass('hidden'); //show feedback_great
+          
+        });
+      });
+      
+      
+</script>
+
+{% endblock JS %}

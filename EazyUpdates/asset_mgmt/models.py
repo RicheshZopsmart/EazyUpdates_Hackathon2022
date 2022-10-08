@@ -1,3 +1,4 @@
+from operator import truediv
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -16,12 +17,12 @@ class Asset(models.Model):
 # Asset Description
 # owner - Foreign Key - User
 
-status = [(1,'Approved'),(2,'Asset collection'),(3,'Asset Review'),(4,'Replaced / Repaired'),(5,'Verified')]
+status = [(0,'Opened'),(1,'Approved'),(2,'Asset collection'),(3,'Asset Review'),(4,'Replaced / Repaired'),(5,'Verified')]
 
+damage_type = [(0,'physical'),(1,'internal')]
 class AssetTicket(models.Model):
-    Asset = models.OneToOneField(Asset,on_delete=models.CASCADE)
-    status = models.SmallIntegerField(choices=status)
+    Asset = models.ForeignKey(Asset,on_delete=models.CASCADE)
+    status = models.SmallIntegerField(choices=status,default=0)
+    reason = models.TextField(max_length=150)
+    damagetype = models.CharField(max_length=10)
     
-
-
-

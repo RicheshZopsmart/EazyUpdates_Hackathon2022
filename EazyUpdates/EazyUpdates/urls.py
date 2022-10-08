@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',Home,name="home"),
     path('assets/',Assethome,name='assets'),
-    path('ticket/<int:assetID>',assetRaiseticket,name='raise-ticket')
+    path('ticket/<int:assetID>',assetRaiseticket,name='raise-ticket'),
+    path('create-asset-ticket/',createTicketAPI,name='create-ticket'),
 ]
