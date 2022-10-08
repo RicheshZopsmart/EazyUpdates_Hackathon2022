@@ -24,4 +24,5 @@ urlpatterns = [
     path('assets/',Assethome,name='assets'),
     path('ticket/<int:assetID>',assetRaiseticket,name='raise-ticket'),
     path('create-asset-ticket/',createTicketAPI,name='create-ticket'),
+    path('track/<int:ticketID>/',TrackTicket,name="track-ticket"),
 ]
