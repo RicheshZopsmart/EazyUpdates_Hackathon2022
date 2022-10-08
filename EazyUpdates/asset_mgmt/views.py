@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from django.utils.decorators import method_decorator
+from .custom_decorator import is_executive
 from .models import *
 # Create your views here.
 
@@ -48,3 +50,6 @@ def TrackTicket(request,ticketID):
     
 
             
+def AdminPanel(request):
+    return render(request,"",{})
+    
