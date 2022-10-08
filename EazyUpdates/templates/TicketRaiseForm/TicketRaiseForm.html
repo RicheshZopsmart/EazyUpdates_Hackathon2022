@@ -7,6 +7,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html-gl/0.3.1/htmlgl.min.js" integrity="sha512-MffjPWwAY9ra9a7OXYEo1j9JiYD8IHJ6Pr1hjxSKk7gNzpYk6YRFB0QOQNg7EvxBosNclFOjl7Fe+1cMGI3rEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
@@ -46,6 +47,11 @@
              why you want to Return?
              </label>
              <textarea class="form-control form-control" cols="40" id="feedback_ok" name="feedback_ok" rows="10"></textarea>
+             <br>
+             <div class="input-box">
+              <span class="details">CC     </span>
+              <input id="feedback_great" type="text" placeholder="Takes ',' separated emails (other than your manager and IT Admin)" required size="100">
+            </div>
             </div>
             <div class="form-group hidden" id="div_testimonial">
               <div>
@@ -69,6 +75,11 @@
               Add description of the problem you are facing:
              </label>
              <textarea class="form-control" cols="40" id="feedback_great" name="feedback_great" rows="10"></textarea>
+             <br>
+             <div class="input-box">
+              <span class="details">CC     </span>
+              <input id="feedback_great" type="text" placeholder="Takes ',' separated emails (other than your manager and IT Admin)" required size="100">
+            </div>
             </div>
             <div class="form-group hidden" id="thanks_anyway">
              <label class="control-label">
@@ -79,6 +90,7 @@
               <button class="btn btn-primary " name="submit" type="submit">
                Submit
               </button>
+              
             </div>
            </form>	
         

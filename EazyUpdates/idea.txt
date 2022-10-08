@@ -21,6 +21,7 @@ Asset mgmt Flow
 # Dropdown - open/close
 
 # Status By(Ticket Id) Email on status change
+Open
 Approval from {{Akshat}}
 Asset collection
 Asset Review By {{Anupam}}
