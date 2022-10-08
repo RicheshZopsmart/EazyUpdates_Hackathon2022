@@ -27,3 +27,7 @@ class AssetTicket(models.Model):
     damagetype = models.CharField(max_length=10)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     
+    def incrementStatus(self):
+        self.status+=1
+        self.save()
+    

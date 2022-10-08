@@ -1,7 +1,10 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from django.utils.decorators import method_decorator
+
+from User.models import extended_user
 from .custom_decorator import is_executive
 from .models import *
 from django.core.mail import send_mail
@@ -64,8 +67,19 @@ def TrackTicket(request,ticketID):
     print("Tickets : ",Ticket)
     return render(request,"asset_mgmt/track-ticket.html",{'ticket':Ticket})
     
-
-            
+# is IT ADMIN
 def AdminPanel(request):
-    return render(request,"",{})
+    assets = Asset.objects.all()    
+    Tickets = AssetTicket.objects.filter(Asset__id__in = assets)
+    return render(request,"asset_mgmt/admin-panel.html",{'tickets':Tickets})
+
+# IS IT ADMIN
+def TakeAction(request,ticketID):
+    status = AssetTicket.objects.filter(id = ticketID)[0]
+    return render(request,"asset_mgmt/take-action.html",{'status':status})
+
+def UpdateStatus(request,ticketID):
+    ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
+    return TakeAction(request,ticketID)
+    
     
