@@ -5,7 +5,7 @@ import json
 from django.utils.decorators import method_decorator
 
 from User.models import extended_user
-from .custom_decorator import is_executive
+from .custom_decorator import is_executive,is_admin
 from .models import *
 from django.core.mail import send_mail
 # Create your views here.
@@ -68,12 +68,13 @@ def TrackTicket(request,ticketID):
     return render(request,"asset_mgmt/track-ticket.html",{'ticket':Ticket})
     
 # is IT ADMIN
+@is_admin
 def AdminPanel(request):
     assets = Asset.objects.all()    
     Tickets = AssetTicket.objects.filter(Asset__id__in = assets)
     return render(request,"asset_mgmt/admin-panel.html",{'tickets':Tickets})
 
-# IS IT ADMIN
+@is_admin
 def TakeAction(request,ticketID):
     status = AssetTicket.objects.filter(id = ticketID)[0]
     return render(request,"asset_mgmt/take-action.html",{'status':status})
