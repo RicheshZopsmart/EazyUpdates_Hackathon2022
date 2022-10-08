@@ -1,9 +1,18 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+import re
+from django.shortcuts import render
 import json
+from django.utils.decorators import method_decorator
+
+from User.models import extended_user
+from .custom_decorator import is_executive,is_admin
 from .models import *
 from django.core.mail import send_mail
 # Create your views here.
+
+        
+def Error(request,err):
+    return render(request,"asset_msgmt/error.html",{'error':err})
 
 def Assethome(request):
     assetObjs = Asset.objects.filter(Owner = request.user)
@@ -17,12 +26,13 @@ def assetRaiseticket(request,assetID):
     try:
         asset_action = request.GET["rating"]
         AssetObj = Asset.objects.filter(id=assetID)[0]
+        owner_name = AssetObj.Owner.username
         if asset_action=="return":
             return_reason = request.GET["feedback_ok"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = return_reason,owner = request.user)
             send_mail(
                 'Asset Return approval',
-                '{Name}, {EmployeeId}, has raise a request for the asset return.\n Please approve the request.',
+                owner_name + 'has raise a request for the asset return.\n Please approve the request.',
                 'sukant.2772001@gmail.com',
                 ['sharif.nawaz@zopsmart.com'],
                 fail_silently=False,
@@ -32,6 +42,14 @@ def assetRaiseticket(request,assetID):
             damage_type = request.GET["testimonial"]
             desc_damage = request.GET["feedback_great"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = desc_damage,damagetype=damage_type,owner = request.user)
+            send_mail(
+                'Asset Replacement approval',
+                owner_name + ' has raise a request for the asset replacement.\n\nDamage_Desc: '+ desc_damage +'\ndamage_type: '+damage_type+'\nPlease approve the request.',
+                'sukant.2772001@gmail.com',
+                ['sharif.nawaz@zopsmart.com'],
+                fail_silently=False,
+            )
+            return Assethome(request)
     except:
         pass
     return render(request,"asset_mgmt/ticket.html",{})
@@ -53,5 +71,28 @@ def TrackTicket(request,ticketID):
     print("Tickets : ",Ticket)
     return render(request,"asset_mgmt/track-ticket.html",{'ticket':Ticket})
     
+# is IT ADMIN
+def AdminPanel(request):
+    xuser = extended_user.objects.get(user = request.user)
+    if xuser.Level==2:
+        # IT Admin
+        assets = Asset.objects.all()    
+        Tickets = AssetTicket.objects.filter(Asset__id__in = assets)
+        return render(request,"asset_mgmt/admin-panel.html",{'tickets':Tickets})
+    elif xuser.Level==1:
+        # Executive Level Employee
+        tickets = AssetTicket.objects.filter(status = 0)
+        print(tickets)
+        return render(request,"asset_mgmt/executive-panel.html",{'tickets':tickets})
+    else:
+        return Error(request,"You are not Authorized! Contact Executive Admin")
 
-            
+@is_admin
+def TakeAction(request,ticketID):
+    status = AssetTicket.objects.filter(id = ticketID)[0]
+    return render(request,"asset_mgmt/take-action.html",{'status':status})
+
+def UpdateStatus(request,ticketID):
+    ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
+    return TakeAction(request,ticketID)
+    

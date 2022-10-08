@@ -25,4 +25,7 @@ urlpatterns = [
     path('ticket/<int:assetID>',assetRaiseticket,name='raise-ticket'),
     path('create-asset-ticket/',createTicketAPI,name='create-ticket'),
     path('track/<int:ticketID>/',TrackTicket,name="track-ticket"),
+    path('admin-panel/',AdminPanel,name='admin-panel'),
+    path('take-action/<int:ticketID>/',TakeAction,name='take-action'),
+    path('update-ticket-status/<int:ticketID>/',UpdateStatus,name='update-ticket-status'),
 ]

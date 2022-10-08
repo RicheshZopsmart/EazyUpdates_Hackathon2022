@@ -1,0 +1,14 @@
+{% extends 'home/base.html' %}
+{% block head %}
+<title>Error</title>
+{% endblock head %}
+{% block body %}
+<div class="jumbotron jumbotron-liquid">
+    <h2 class="text text-danger text-center">
+        Error
+    </h2>
+</div>
+<h4>
+    {{error}}
+</h4>
+{% endblock body %}
