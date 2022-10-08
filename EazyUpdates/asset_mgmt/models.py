@@ -25,4 +25,5 @@ class AssetTicket(models.Model):
     status = models.SmallIntegerField(choices=status,default=0)
     reason = models.TextField(max_length=150)
     damagetype = models.CharField(max_length=10)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
     

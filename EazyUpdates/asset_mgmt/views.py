@@ -6,7 +6,11 @@ from .models import *
 
 def Assethome(request):
     asssetObjs = Asset.objects.filter(Owner = request.user)
-    return render(request,'asset_mgmt/index.html',{'assets':asssetObjs})
+    raisedTicket = AssetTicket.objects.filter(owner = request.user)
+    ids=[]
+    for i in raisedTicket:
+        ids.append(i.id)
+    return render(request,'asset_mgmt/index.html',{'assets':asssetObjs,'raisedTicket':raisedTicket,'ids':ids})
 
 def assetRaiseticket(request,assetID):
     try:
@@ -14,11 +18,11 @@ def assetRaiseticket(request,assetID):
         AssetObj = Asset.objects.filter(id=assetID)[0]
         if asset_action=="return":
             return_reason = request.GET["feedback_ok"]
-            AssetTicket.objects.create(status=0,Asset=AssetObj,reason = return_reason)
+            AssetTicket.objects.create(status=0,Asset=AssetObj,reason = return_reason,owner = request.user)
         else:
             damage_type = request.GET["testimonial"]
             desc_damage = request.GET["feedback_great"]
-            AssetTicket.objects.create(status=0,Asset=AssetObj,reason = desc_damage,damagetype=damage_type)
+            AssetTicket.objects.create(status=0,Asset=AssetObj,reason = desc_damage,damagetype=damage_type,owner = request.user)
     except:
         pass
     return render(request,"asset_mgmt/ticket.html",{})

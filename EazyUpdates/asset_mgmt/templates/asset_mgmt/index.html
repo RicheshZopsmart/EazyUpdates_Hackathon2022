@@ -10,7 +10,6 @@
         Asset Management
     </h2>
 </div>
-
 {% for i in assets %}
 <div class="card" style="width: 18rem; margin:5%">
     <div class="card-body">
@@ -19,7 +18,11 @@
       <p class="card-text">Serial : {{i.SerialID}}</p>
     </div>
     <div class="card-footer">
-        <a type="button" class="btn btn-danger" href="{% url 'raise-ticket' i.id %}"  id="{{i.id}}">Raise A ticket</a>
+      {% if i.id in ids %}
+      <a type="button" class="btn btn-danger" href="{% url 'raise-ticket' i.id %}"  id="{{i.id}}">Track</a>
+      {% else %}
+        <a type="button" class="btn btn-info" href="{% url 'raise-ticket' i.id %}"  id="{{i.id}}">Raise A ticket</a>
+      {% endif %}
     </div>
   </div>
 {% endfor %}
