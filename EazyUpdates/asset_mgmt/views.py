@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from .models import *
+from django.core.mail import send_mail
 # Create your views here.
 
 def Assethome(request):
@@ -19,10 +20,24 @@ def assetRaiseticket(request,assetID):
         if asset_action=="return":
             return_reason = request.GET["feedback_ok"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = return_reason,owner = request.user)
+            send_mail(
+                'Asset Return approval',
+                '{Name}, {EmployeeId}, has raise a request for the asset return.\n Please approve the request.',
+                'sukant.2772001@gmail.com',
+                ['sharif.nawaz@zopsmart.com'],
+                fail_silently=False,
+            )
         else:
             damage_type = request.GET["testimonial"]
             desc_damage = request.GET["feedback_great"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = desc_damage,damagetype=damage_type,owner = request.user)
+            send_mail(
+                'Asset Replacement approval',
+                '{Name}, {EmployeeId}, has raise a request for the asset replacement.\nDamage_Type: ' + damage_type + '\nDamge_description: '+ desc_damage+ '\nPlease approve the request.',
+                'sukant.2772001@gmail.com',
+                ['sharif.nawaz@zopsmart.com'],
+                fail_silently=False,
+            )
     except:
         pass
     return render(request,"asset_mgmt/ticket.html",{})
