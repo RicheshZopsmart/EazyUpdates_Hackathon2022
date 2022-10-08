@@ -4,6 +4,7 @@ import json
 from django.utils.decorators import method_decorator
 from .custom_decorator import is_executive
 from .models import *
+from django.core.mail import send_mail
 # Create your views here.
 
 def Assethome(request):
@@ -21,12 +22,18 @@ def assetRaiseticket(request,assetID):
         if asset_action=="return":
             return_reason = request.GET["feedback_ok"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = return_reason,owner = request.user)
+            send_mail(
+                'Asset Return approval',
+                '{Name}, {EmployeeId}, has raise a request for the asset return.\n Please approve the request.',
+                'sukant.2772001@gmail.com',
+                ['sharif.nawaz@zopsmart.com'],
+                fail_silently=False,
+            )
             return Assethome(request)
         else:
             damage_type = request.GET["testimonial"]
             desc_damage = request.GET["feedback_great"]
             AssetTicket.objects.create(status=0,Asset=AssetObj,reason = desc_damage,damagetype=damage_type,owner = request.user)
-            return Assethome(request)
     except:
         pass
     return render(request,"asset_mgmt/ticket.html",{})
