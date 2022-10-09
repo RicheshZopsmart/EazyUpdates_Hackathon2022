@@ -34,8 +34,8 @@ def assetRaiseticket(request,assetID):
             send_mail(
                 'Asset Return approval',
                 owner_name + 'has raise a request for the asset return.\n Please approve the request.',
-                'sukant.2772001@gmail.com',
-                ['sharif.nawaz@zopsmart.com'],
+                'eazy.updates.no.reply@gmail.com',
+                ['manager.eazyupdates@gmail.com'],
                 fail_silently=False,
             )
             return Assethome(request)
@@ -46,8 +46,8 @@ def assetRaiseticket(request,assetID):
             send_mail(
                 'Asset Replacement approval',
                 owner_name + ' has raise a request for the asset replacement.\n\nDamage_Desc: '+ desc_damage +'\ndamage_type: '+damage_type+'\nPlease approve the request.',
-                'sukant.2772001@gmail.com',
-                ['sharif.nawaz@zopsmart.com'],
+                'eazy.updates.no.reply@gmail.com',
+                ['manager.eazyupdates@gmail.com'],
                 fail_silently=False,
             )
             return Assethome(request)
@@ -105,8 +105,8 @@ def RejectTicket(request, ticketID):
     send_mail(
         'Ticket Rejected',
         owner.username + ', your ticket is rejected is by your manager.',
-        'sukant.2772001@gmail.com',
-        ['sharif.nawaz@zopsmart.com'],
+        'eazy.updates.no.reply@gmail.com',
+        ['employee.eazyupdates@gmail.com'],
         fail_silently=False,
     )
     return AdminPanel(request)
