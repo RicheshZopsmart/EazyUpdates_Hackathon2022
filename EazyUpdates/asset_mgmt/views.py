@@ -35,8 +35,8 @@ def assetRaiseticket(request,assetID):
             send_mail(
                 'Asset Return approval',
                 owner_name + 'has raise a request for the asset return.\n Please approve the request.',
-                'sukant.2772001@gmail.com',
-                ['sharif.nawaz@zopsmart.com'],
+                'eazy.updates.no.reply@gmail.com',
+                ['manager.eazyupdates@gmail.com'],
                 fail_silently=False,
             )
             return Assethome(request)
@@ -47,8 +47,8 @@ def assetRaiseticket(request,assetID):
             send_mail(
                 'Asset Replacement approval',
                 owner_name + ' has raise a request for the asset replacement.\n\nDamage_Desc: '+ desc_damage +'\ndamage_type: '+damage_type+'\nPlease approve the request.',
-                'sukant.2772001@gmail.com',
-                ['sharif.nawaz@zopsmart.com'],
+                'eazy.updates.no.reply@gmail.com',
+                ['manager.eazyupdates@gmail.com'],
                 fail_silently=False,
             )
             return Assethome(request)
@@ -98,6 +98,20 @@ def UpdateStatus(request,ticketID):
     ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
     return AdminPanel(request)
 
+
+def RejectTicket(request, ticketID):
+    asset = AssetTicket.objects.get(id = ticketID)
+    owner = asset.Asset.Owner
+    AssetTicket.objects.filter(id = ticketID).delete()
+    send_mail(
+        'Ticket Rejected',
+        owner.username + ', your ticket is rejected is by your manager.',
+        'eazy.updates.no.reply@gmail.com',
+        ['employee.eazyupdates@gmail.com'],
+        fail_silently=False,
+    )
+    return AdminPanel(request)
+    
 def replaceAsset(request,assetID):
     context = {}
     try:
@@ -116,3 +130,4 @@ def replaceAsset(request,assetID):
         context = {"owner":oldAssetOwner}
     return render(request,"asset_mgmt/replace-asset.html",context)
     
+

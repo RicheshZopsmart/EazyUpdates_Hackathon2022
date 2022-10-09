@@ -5,19 +5,26 @@
 </title>
 {% endblock head %}
 {% block body %}
+<div class="jumbotron jumbotron-liquid">
+    <h2 class="text text-info text-center">
+        Asset Management
+    </h2>
+</div>
 {% if tickets %}
 {% for i in tickets %}
-<div class="card" style="width: 20rem; margin:5%">
+<div style="float:left; width: 25%; height: 30%;
+padding: 20 20px;margin-left: 94px; margin-bottom: 20px;" class="card">
     <div class="card-body">
-      <h5 class="card-title">{{i.Asset.Name}}</h5>
-      <p class="card-text">{{i.Asset.Description}}</p>
-      <p class="card-text">Serial : {{i.Asset.SerialID}}</p>
-      <p class="card-text">Damage Type : {{i.damagetype}}</p>
-      <p class="card-text">Reason : {{i.reason}}</p>
-      <p class="card-text">Owner : {{i.owner}}</p>
+      <h5 style="font-size: 0.9vw;" class="card-title">{{i.Asset.Name}}</h5>
+      <p style="font-size: 0.9vw;" class="card-text">{{i.Asset.Description}}</p>
+      <p style="font-size: 0.9vw;" class="card-text">Serial : {{i.Asset.SerialID}}</p>
+      <p style="font-size: 0.9vw;" class="card-text">Damage Type : {{i.damagetype}}</p>
+      <p style="font-size: 0.9vw;" class="card-text">Reason : {{i.reason}}</p>
+      <p style="font-size: 0.9vw;" class="card-text">Owner : {{i.owner}}</p>
     </div>
-    <div class="card-footer">
-        <a type="button" class="btn btn-danger" href="{% url 'update-ticket-status' i.id %}"  id="{{i.id}}">Approve</a>
+    <div style="font-size: 0.9vw;" class="card-footer">
+        <a type="button" class="btn btn-success" href="{% url 'update-ticket-status' i.id %}"  style="margin-right: 5px;" id="{{i.id}}">Approve</a>
+        <a type="button" class="btn btn-danger" href="{% url 'reject-ticket' i.id %}" id ="{{i.id}}">Reject</a>
     </div>
 </div>
 {% endfor %}
