@@ -27,6 +27,7 @@ def is_admin(func):
         if not request.user.is_anonymous: #checking if user is logged in or not
             try: #try if the user even has data in user_extended model
                 xuser = extended_user.objects.get(user=request.user)
+                print("Access Level : ",xuser.Level)
                 if  xuser!=None and xuser.Level != 2: #if user has IT admin access
                     return render(request,"asset_mgmt/errors.html",{'error':"You don't have access to this page"})
                 return func(request,*args,**kwargs) #basic syntax for decorator also args and kwargs help to handle multiple args passing without error

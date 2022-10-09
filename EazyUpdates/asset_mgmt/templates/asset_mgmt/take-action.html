@@ -158,21 +158,28 @@
     {{status.status}}
 </div>
 <div class="action-card">
-    <div class="card" style="width: 18rem;">
-        <p class="text text-info">Damage Type:</p>
-        {{status.damagetype}}
-        <div class="card-body">
-          <p class="card-title">Reason:</p>
-          <p class="card-text">{{status.reason}}</p>
-        </div>
-      </div>
-    <div class="card" style="width: 18rem; margin:5%">
-        {% if status.status == 1 %}
-    <a href="{% url 'update-ticket-status' status.id %}">Asset Review Done</a>
-    {% elif status.status == 2 %}
-    <a href="{% url 'update-ticket-status' status.id %}">Replace/Repair Done</a>
-    {% endif %}
+  <div class="card" style="width: 20rem; margin:1%">
+    <div class="card-body">
+      <h5 class="card-title">Name : {{status.Asset.Name}}</h5>
+      <p class="card-text">Description: {{status.Asset.Description}}</p>
+      <p class="card-text">Serial : {{status.Asset.SerialID}}</p>
+      <p class="card-text">Damage Type : {{status.damagetype}}</p>
+      <p class="card-text">Reason : {{status.reason}}</p>
+     
+    </div>
+    <div class="card-footer">
+      <p class="card-text">Owner : {{status.owner}}</p>
+    </div>
 </div>
+   
+    <div class="card" style="width: 18rem; margin:5%">
+      {% if status.status == 1 %}
+        <a class="btn btn-success" href="{% url 'update-ticket-status' status.id %}">Asset Review Done</a>
+      {% elif status.status == 2 %}
+        <a href="{% url 'update-ticket-status' status.id %}" class="btn btn-success ">Repair Done</a>
+        <a href="{% url 'replace-asset' status.Asset.id %}" class="btn btn-warning mt-2">Replace Asset</a>
+      {% endif %}
+    </div>
 
 </div>
 

@@ -29,4 +29,5 @@ urlpatterns = [
     path('take-action/<int:ticketID>/',TakeAction,name='take-action'),
     path('update-ticket-status/<int:ticketID>/',UpdateStatus,name='update-ticket-status'),
     path('reject-ticket/<int:ticketID>/',RejectTicket,name='reject-ticket'),
+    path('replace-asset/<int:assetID>/',replaceAsset,name='replace-asset'),
 ]
