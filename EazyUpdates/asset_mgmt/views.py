@@ -14,7 +14,7 @@ from .forms import *
 
         
 def Error(request,err):
-    return render(request,"asset_msgmt/error.html",{'error':err})
+    return render(request,"asset_mgmt/errors.html",{'error':err})
 
 def Assethome(request):
     assetObjs = Asset.objects.filter(Owner = request.user)
