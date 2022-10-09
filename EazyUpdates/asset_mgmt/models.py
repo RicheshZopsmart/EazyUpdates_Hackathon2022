@@ -17,7 +17,7 @@ class Asset(models.Model):
 # Asset Description
 # owner - Foreign Key - User
 
-status = [(0,'Opened'),(1,'Approved'),(2,'Asset collection'),(3,'Asset Review'),(4,'Replaced / Repaired'),(5,'Verified')]
+status = [(0,'Opened'),(1,'Approved'),(2,'Asset Review'),(3,'Replaced / Repaired'),(4,'Verified')]
 
 damage_type = [(0,'physical'),(1,'internal')]
 class AssetTicket(models.Model):

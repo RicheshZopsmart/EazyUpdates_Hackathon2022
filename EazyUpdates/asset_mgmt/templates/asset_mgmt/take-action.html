@@ -64,13 +64,15 @@
         background: #bbb;
       }
       .progress-bar.first {
-        background: #0c84d9;
+        background: white;
       }
       .progress-bar.second {
-        left: 37%;
+          left: 37%;
+          background: white;
       }
       .progress-bar.third {
-        left: 64%;
+          left: 64%;
+          background: white;
       }
       
       .message {
@@ -140,9 +142,9 @@
       <div class="dot two" id="1">2</div>
       <div class="dot three" id="2">3</div>
       <div class="dot four" id="3">4</div>
-      <div class="progress-bar first"></div>
-      <div class="progress-bar second"></div>
-      <div class="progress-bar third"></div>
+      <div class="progress-bar first" id="4"></div>
+      <div class="progress-bar second" id="5"></div>
+      <div class="progress-bar third" id="6"></div>
       <div class="message message-1">Open<div>
       <div class="message message-2">Approval Confirmed<div>
       <div class="message message-3">Asset Review<div>
@@ -187,8 +189,20 @@
 <script>
     var status = document.getElementById('status').innerText
     for(let i = 0;i<=status;i++){
-        var div = document.getElementById(i.toString());
-        div.style.background = "blue";
-    }
+            var div = document.getElementById(i.toString());
+            div.style.background = "blue"
+            if (i == 1){
+              var div = document.getElementById("4")
+              div.style.background = "blue"
+            }
+            if (i == 2) {
+              var div = document.getElementById("5")
+              div.style.background = "blue"
+            }
+            if (i == 3) {
+              var div = document.getElementById("6")
+              div.style.background = "blue"
+            }
+      }
 </script>
 {% endblock JS %}
