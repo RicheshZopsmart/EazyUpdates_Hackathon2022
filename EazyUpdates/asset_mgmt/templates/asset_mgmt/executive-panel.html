@@ -1,6 +1,27 @@
 {% extends 'home/base.html' %}
+{% block head %}
+<title>
+    Admin Panel | EazyUpdates
+</title>
+{% endblock head %}
 {% block body %}
+{% if i %}
 {% for i in tickets %}
-    {{i.Asset}}
+<div class="card" style="width: 20rem; margin:5%">
+    <div class="card-body">
+      <h5 class="card-title">{{i.Asset.Name}}</h5>
+      <p class="card-text">{{i.Asset.Description}}</p>
+      <p class="card-text">Serial : {{i.Asset.SerialID}}</p>
+      <p class="card-text">Damage Type : {{i.damagetype}}</p>
+      <p class="card-text">Reason : {{i.reason}}</p>
+      <p class="card-text">Owner : {{i.owner}}</p>
+    </div>
+    <div class="card-footer">
+        <a type="button" class="btn btn-danger" href="{% url 'track-ticket' i.id %}"  id="{{i.id}}">Approve</a>
+    </div>
+</div>
 {% endfor %}
+{% else %}
+    <h4 class="text text-info text-center mt-5">Currently No Tickets</h4>
+{% endif %}
 {% endblock body %}

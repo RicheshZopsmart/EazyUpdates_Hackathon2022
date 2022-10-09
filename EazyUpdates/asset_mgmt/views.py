@@ -94,5 +94,4 @@ def TakeAction(request,ticketID):
 
 def UpdateStatus(request,ticketID):
     ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
-    return TakeAction(request,ticketID)
-    
+    return AdminPanel(request)
