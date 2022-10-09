@@ -12,17 +12,18 @@
 </div>
 
 {% for i in assets %}
-<div class="card" style="width: 18rem; margin:5%">
-    <div class="card-body">
-      <h5 class="card-title">{{i.Name}}</h5>
-      <p class="card-text">{{i.Description}}</p>
-      <p class="card-text">Serial : {{i.SerialID}}</p>
+<div style="float:left; width: 25%; height: 30%;
+padding: 20 20px;margin-left: 94px; margin-bottom: 20px;" class="card">
+    <div style="font-size: 0.9vw;" class="card-body">
+      <h5 style="font-size: 0.9vw;" class="card-title">{{i.Name}}</h5>
+      <p style="font-size: 0.9vw;" class="card-text">{{i.Description}}</p>
+      <p style="font-size: 0.9vw;" class="card-text">Serial : {{i.SerialID}}</p>
     </div>
-    <div class="card-footer">
+    <div style="font-size: 0.9vw;" class="card-footer">
       {% if i.id in ids %}
-        <a type="button" class="btn btn-danger" href="{% url 'track-ticket' i.id %}"  id="{{i.id}}">Track</a>
+        <a type="button" class="btn btn-info" href="{% url 'track-ticket' i.id %}"  id="{{i.id}}">Track</a>
       {% else %}
-        <a type="button" class="btn btn-info" href="{% url 'raise-ticket' i.id %}"  id="{{i.id}}">Raise A ticket</a>
+        <a type="button" class="btn btn-danger" href="{% url 'raise-ticket' i.id %}"  id="{{i.id}}">Raise A ticket</a>
       {% endif %}
     </div>
 </div>
