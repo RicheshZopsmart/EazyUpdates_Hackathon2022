@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'User',
     'asset_mgmt',
+    'crispy_forms',
     
 ]
 

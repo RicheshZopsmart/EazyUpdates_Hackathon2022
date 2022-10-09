@@ -178,7 +178,9 @@
       {% elif status.status == 2 %}
         <a href="{% url 'update-ticket-status' status.id %}" class="btn btn-success ">Repair Done</a>
         <a href="{% url 'replace-asset' status.Asset.id %}" class="btn btn-warning mt-2">Replace Asset</a>
+        
       {% endif %}
+      <h1>{{status.Asset.id}}</h1>
     </div>
 
 </div>
