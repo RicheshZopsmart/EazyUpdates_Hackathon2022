@@ -150,11 +150,11 @@ form .user-details .input-box{
     <div class="title">Replace Asset</div>
     <br>
     <div class="content">
-      <form onsubmit="event.preventDefault();">
+      <form>
         <div class="user-details">
           <div class="input-box">
             <span class="details">Employee</span>
-            <input type="text" placeholder="{{oldAsset.Owner.username}}" disabled>
+            <input type="text" placeholder="{{owner}}" disabled>
           </div>
           <div class="input-box">
             <span class="details">New Asset Name</span>
@@ -170,22 +170,10 @@ form .user-details .input-box{
           </div>
         </div>
         <div class="button">
-          <!-- <input type="submit" class="submit" id="form-send"> -->
-          <a href="#" onclick="return a()">Submit</a>
+          <input type="submit" class="submit" id="form-send">
+          
         </div>
       </form>
     </div>
   </div>
-
-  {{form}}
 {% endblock body %}
-
-{% block JS %}
-<script>
-    function a(){
-        var asset_name = document.getElementById('asset-name').innerText;
-        alert(asset_name);
-    }
-    
-</script>
-{% endblock JS %}

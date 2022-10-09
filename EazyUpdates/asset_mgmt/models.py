@@ -10,7 +10,9 @@ class Asset(models.Model):
     Owner = models.ForeignKey(to=User,on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.Name + ' ' + self.Owner.username
+        return self.Name + ' ' + self.Owner.username + ' ' + str(self.id)
+    def get_owner(self):
+        return self.Owner
 
 # Asset Model
 # Serial ID

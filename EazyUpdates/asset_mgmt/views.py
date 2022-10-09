@@ -1,3 +1,4 @@
+from tokenize import Name
 from django.http import HttpResponse
 import re
 from django.shortcuts import render
@@ -13,7 +14,7 @@ from .forms import *
 
         
 def Error(request,err):
-    return render(request,"asset_msgmt/error.html",{'error':err})
+    return render(request,"asset_mgmt/errors.html",{'error':err})
 
 def Assethome(request):
     assetObjs = Asset.objects.filter(Owner = request.user)
@@ -138,7 +139,21 @@ def RejectTicket(request, ticketID):
     return AdminPanel(request)
     
 def replaceAsset(request,assetID):
-    asset = Asset.objects.filter(id = assetID).first
-    form  = Asset_replace_form()
-    context = {"oldAsset":asset,'form':form}
+    context = {}
+    try:
+        asset = Asset.objects.filter(id = assetID).first
+        asset_name = request.GET['asset-name']
+        asset_Serial = request.GET['asset-serial']
+        asset_desc = request.GET['asset-desc']
+        oldAssetOwner = Asset.objects.get(id = assetID).get_owner()
+        Asset.objects.filter(id = assetID).delete()
+        newAsset = Asset(Name=asset_name,Description=asset_desc,SerialID=asset_Serial)
+        newAsset.Owner=oldAssetOwner
+        newAsset.save()
+        return render(request,"asset_mgmt/replace-asset.html",{})
+    except:
+        oldAssetOwner = Asset.objects.get(id = assetID).get_owner()
+        context = {"owner":oldAssetOwner}
     return render(request,"asset_mgmt/replace-asset.html",context)
+    
+

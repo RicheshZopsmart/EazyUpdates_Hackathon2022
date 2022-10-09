@@ -10,7 +10,7 @@
         Asset Management
     </h2>
 </div>
-
+{% if assets %}
 {% for i in assets %}
 <div style="float:left; width: 25%; height: 30%;
 padding: 20 20px;margin-left: 94px; margin-bottom: 20px;" class="card">
@@ -27,7 +27,12 @@ padding: 20 20px;margin-left: 94px; margin-bottom: 20px;" class="card">
       {% endif %}
     </div>
 </div>
-
 {% endfor %}
+{% else %}
+<h2 class="text text-info text-center mt-2">No assets are assigned to you</h2>
+{% endif %}
+
+
+
 
 {% endblock body %}
