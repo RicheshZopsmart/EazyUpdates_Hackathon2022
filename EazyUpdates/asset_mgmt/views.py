@@ -94,7 +94,33 @@ def TakeAction(request,ticketID):
 
 
 def UpdateStatus(request,ticketID):
-    ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
+    AssetTicket.objects.get(id = ticketID).incrementStatus()
+    asset = AssetTicket.objects.get(id = ticketID)
+    owner = asset.Asset.Owner
+    if (asset.status == 1):
+        send_mail(
+        'Ticket Approved',
+        owner.username + ', your ticket is approved by your manager. \nPlease submit your asset to IT department.',
+        'eazy.updates.no.reply@gmail.com',
+        ['employee.eazyupdates@gmail.com'],
+        fail_silently=False,
+    )
+    if (asset.status == 2):
+        send_mail(
+        'Ticket Reviewed',
+        owner.username + ', your asset is successfully reviewed by your IT admin. \nContact them for more details.',
+        'eazy.updates.no.reply@gmail.com',
+        ['employee.eazyupdates@gmail.com'],
+        fail_silently=False,
+    )
+    if (asset.status == 3):
+        send_mail(
+        'Ticket Done',
+        owner.username + ', your asset is successfully repaired/replaced/collected by your IT admin.',
+        'eazy.updates.no.reply@gmail.com',
+        ['employee.eazyupdates@gmail.com'],
+        fail_silently=False,
+    )
     return AdminPanel(request)
 
 
@@ -104,7 +130,7 @@ def RejectTicket(request, ticketID):
     AssetTicket.objects.filter(id = ticketID).delete()
     send_mail(
         'Ticket Rejected',
-        owner.username + ', your ticket is rejected is by your manager.',
+        owner.username + ', your ticket is rejected by your manager.',
         'eazy.updates.no.reply@gmail.com',
         ['employee.eazyupdates@gmail.com'],
         fail_silently=False,
