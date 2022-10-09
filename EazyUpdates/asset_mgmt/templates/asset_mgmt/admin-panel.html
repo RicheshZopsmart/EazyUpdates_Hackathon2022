@@ -7,12 +7,18 @@
 {% endblock head %}
 
 {% block body %}
+    <div class="jumbotron jumbotron-liquid">
+        <h2 class="text text-info text-center">
+            Asset Management
+        </h2>
+    </div>
     {% for i in tickets %}
-    <div class="card" style="width: 18rem; margin:5%">
-        <div class="card-body">
-          <h5 class="card-title">{{i.Asset.Name}}</h5>
-          <p class="card-text">{{i.Asset.Description}}</p>
-          <p class="card-text">Serial : {{i.Asset.SerialID}}</p>
+    <div style="float:left; width: 25%; height: 30%;
+padding: 20 20px;margin-left: 94px; margin-bottom: 20px;" class="card">
+        <div style="font-size: 0.9vw;" class="card-body">
+          <h5 style="font-size: 0.9vw;" class="card-title">{{i.Asset.Name}}</h5>
+          <p style="font-size: 0.9vw;" class="card-text">{{i.Asset.Description}}</p>
+          <p style="font-size: 0.9vw;" class="card-text">Serial : {{i.Asset.SerialID}}</p>
         </div>
         <a type="button" class="btn btn-info" href="{% url 'take-action' i.id %}"  id="{{i.id}}">Take Action</a>
     </div>
