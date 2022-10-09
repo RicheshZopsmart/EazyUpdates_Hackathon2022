@@ -95,3 +95,17 @@ def TakeAction(request,ticketID):
 def UpdateStatus(request,ticketID):
     ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
     return AdminPanel(request)
+
+
+def RejectTicket(request, ticketID):
+    asset = AssetTicket.objects.get(id = ticketID)
+    owner = asset.Asset.Owner
+    AssetTicket.objects.filter(id = ticketID).delete()
+    send_mail(
+        'Ticket Rejected',
+        owner.username + ', your ticket is rejected is by your manager.',
+        'sukant.2772001@gmail.com',
+        ['sharif.nawaz@zopsmart.com'],
+        fail_silently=False,
+    )
+    return AdminPanel(request)
