@@ -122,6 +122,7 @@ def UpdateStatus(request,ticketID):
         ['employee.eazyupdates@gmail.com'],
         fail_silently=False,
     )
+        AssetTicket.objects.filter(id = ticketID).delete()
     return AdminPanel(request)
 
 
