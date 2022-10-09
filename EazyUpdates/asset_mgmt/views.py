@@ -8,6 +8,7 @@ from User.models import extended_user
 from .custom_decorator import is_executive,is_admin
 from .models import *
 from django.core.mail import send_mail
+from .forms import *
 # Create your views here.
 
         
@@ -82,7 +83,6 @@ def AdminPanel(request):
     elif xuser.Level==1:
         # Executive Level Employee
         tickets = AssetTicket.objects.filter(status = 0)
-        print(tickets)
         return render(request,"asset_mgmt/executive-panel.html",{'tickets':tickets})
     else:
         return Error(request,"You are not Authorized! Contact Executive Admin")
@@ -92,6 +92,13 @@ def TakeAction(request,ticketID):
     status = AssetTicket.objects.filter(id = ticketID)[0]
     return render(request,"asset_mgmt/take-action.html",{'status':status})
 
+
 def UpdateStatus(request,ticketID):
     ticket = AssetTicket.objects.get(id = ticketID).incrementStatus()
     return AdminPanel(request)
+
+def replaceAsset(request,assetID):
+    asset = Asset.objects.filter(id = assetID).first
+    form  = Asset_replace_form()
+    context = {"oldAsset":asset,'form':form}
+    return render(request,"asset_mgmt/replace-asset.html",context)

@@ -28,4 +28,5 @@ urlpatterns = [
     path('admin-panel/',AdminPanel,name='admin-panel'),
     path('take-action/<int:ticketID>/',TakeAction,name='take-action'),
     path('update-ticket-status/<int:ticketID>/',UpdateStatus,name='update-ticket-status'),
+    path('replace-asset/<int:assetID>/',replaceAsset,name='replace-asset'),
 ]

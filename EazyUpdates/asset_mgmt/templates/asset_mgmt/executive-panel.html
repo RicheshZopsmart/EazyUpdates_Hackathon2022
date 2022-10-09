@@ -5,7 +5,7 @@
 </title>
 {% endblock head %}
 {% block body %}
-{% if i %}
+{% if tickets %}
 {% for i in tickets %}
 <div class="card" style="width: 20rem; margin:5%">
     <div class="card-body">
@@ -17,7 +17,7 @@
       <p class="card-text">Owner : {{i.owner}}</p>
     </div>
     <div class="card-footer">
-        <a type="button" class="btn btn-danger" href="{% url 'track-ticket' i.id %}"  id="{{i.id}}">Approve</a>
+        <a type="button" class="btn btn-danger" href="{% url 'update-ticket-status' i.id %}"  id="{{i.id}}">Approve</a>
     </div>
 </div>
 {% endfor %}
